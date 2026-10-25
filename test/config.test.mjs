@@ -1,0 +1,17 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,writeFile,rm,symlink} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {validateConfig,validateBundle,approvedJSON,readJSON,hash,path} from '../src/config.mjs';
+const config=()=>({schemaVersion:1,url:'http://127.0.0.1:4178/',assets:['/'],fixtures:[{path:'/api',json:{public:'yes',private:'NO_EXPORT'},allowFields:['public']}],steps:[{action:'expectText',selector:'h1',text:'Hi'}]});
+test('only explicitly approved scalar fields survive',()=>{const c=validateConfig(config());assert.deepEqual(Object.keys(c.fixtures[0].json),['public']);assert.ok(!JSON.stringify(c).includes('NO_EXPORT'));});
+for(const url of ['https://127.0.0.1/','http://example.com/','http://127.0.0.1/?token=x','http://user:pass@localhost/','file:///tmp/test','http://127.0.0.1/#x'])test('unsupported URL rejected: '+url,()=>assert.throws(()=>validateConfig({...config(),url})));
+for(const p of ['../file','//host/file','/a/../file','/x?q=1','/x#key','/a%20b','/a\u0000b'])test('unsupported route rejected: '+p,()=>assert.throws(()=>path(p)));
+test('missing and nested allowlists do not silently pass',()=>{assert.throws(()=>approvedJSON({a:1},[]));assert.throws(()=>approvedJSON({a:{}},['a']));assert.throws(()=>approvedJSON({},['a']));assert.throws(()=>approvedJSON(JSON.parse('{"__proto__":"x"}'),['__proto__']));});
+test('duplicate and overlapping routes rejected',()=>{const a=config();a.assets.push('/');assert.throws(()=>validateConfig(a));const b=config();b.fixtures[0].path='/';assert.throws(()=>validateConfig(b));});
+test('unknown config/step fields rejected',()=>{assert.throws(()=>validateConfig({...config(),exec:'never'}));const c=config();c.steps=[{action:'evaluate',text:'never'}];assert.throws(()=>validateConfig(c));});
+test('viewport and wait limits enforced',()=>{assert.throws(()=>validateConfig({...config(),viewport:{width:100000,height:900}}));assert.throws(()=>validateConfig({...config(),steps:[{action:'wait',ms:6000}]}));});
+test('bundle validates exact resources and hashes',()=>{const c=validateConfig(config());const b={schemaVersion:1,capturedAt:new Date().toISOString(),sourceConfigSha256:'a'.repeat(64),config:c,resources:[{path:'/',contentType:'text/html',bodyBase64:Buffer.from('Hi').toString('base64'),sha256:hash('Hi')}]};assert.equal(validateBundle(b).resources.length,1);assert.throws(()=>validateBundle({...b,resources:[{...b.resources[0],sha256:'b'.repeat(64)}]}));assert.throws(()=>validateBundle({...b,resources:[]}));});
+test('JSON input limits, invalid encoding and symlink boundary',async()=>{const d=await mkdtemp(join(tmpdir(),'demo-proof-config-test-'));try{const f=join(d,'a.json');await writeFile(f,'{"a":1}');assert.equal((await readJSON(f)).data.a,1);await writeFile(f,Buffer.from([255]));await assert.rejects(readJSON(f));await writeFile(f,' '.repeat(12_000_001));await assert.rejects(readJSON(f));if(process.platform!=='win32'){await symlink(f,join(d,'link'));await assert.rejects(readJSON(join(d,'link')));}}finally{await rm(d,{recursive:true,force:true});}});
+test('a recording without any UI assertion cannot claim a verified journey',()=>assert.throws(()=>validateConfig({...config(),steps:[{action:'wait',ms:0}]}),/assertion/));

@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-25T15:10:04.186Z",
+  "sourceConfigSha256": "6d93d980b33a0408421db12e092a5b64338c9ef49737d5266d6f610f163e165f",
+  "config": {
+    "schemaVersion": 1,
+    "url": "http://127.0.0.1:4178/",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "assets": [
+      "/",
+      "/style.css",
+      "/app.js"
+    ],
+    "fixtures": [
+      {
+        "path": "/api/weather",
+        "method": "GET",
+        "json": {
+          "city": "Adelaide",
+          "temperatureC": 21,
+          "windKph": 12
+        }
+      }
+    ],
+    "steps": [
+      {
+        "action": "expectText",
+        "selector": "#city",
+        "text": "Adelaide"
+      },
+      {
+        "action": "wait",
+        "ms": 4500
+      },
+      {
+        "action": "click",
+        "selector": "#units"
+      },
+      {
+        "action": "expectText",
+        "selector": "#temperature",
+        "text": "69.8 °F"
+      },
+      {
+        "action": "wait",
+        "ms": 4500
+      },
+      {
+        "action": "click",
+        "selector": "#refresh"
+      },
+      {
+        "action": "expectText",
+        "selector": "#status",
+        "text": "Approved example snapshot loaded."
+      },
+      {
+        "action": "wait",
+        "ms": 4500
+      },
+      {
+        "action": "click",
+        "selector": "#units"
+      },
+      {
+        "action": "expectText",
+        "selector": "#temperature",
+        "text": "21 °C"
+      },
+      {
+        "action": "wait",
+        "ms": 4500
+      }
+    ]
+  },
+  "resources": [
+    {
+      "path": "/",
+      "contentType": "text/html",
+      "bodyBase64": "PCFkb2N0eXBlIGh0bWw+PGh0bWwgbGFuZz0iZW4iPjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij48bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLGluaXRpYWwtc2NhbGU9MSI+PHRpdGxlPkZvcmVjYXN0IERlc2sg4oCUIERlbW9Qcm9vZiBleGFtcGxlPC90aXRsZT48bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9zdHlsZS5jc3MiPjxib2R5PjxtYWluPjxwIGNsYXNzPSJleWVicm93Ij5ERU1PIFBST09GIC8gQVBQUk9WRUQgRVhBTVBMRSBEQVRBPC9wPjxoMT5BIGZvcmVjYXN0IHlvdTxicj5jYW4gcmVwbGF5LjwvaDE+PHAgY2xhc3M9ImludHJvIj5BIHRpbnkgQVBJLWJhY2tlZCBpbnRlcmZhY2UuIFRoZSBleHBvcnRlZCB3YWxrdGhyb3VnaCB1c2VzIGEgZnJvemVuIGZpeHR1cmUsIHdpdGggaXRzIHVwc3RyZWFtIEFQSSByZXBsYWNlZC48L3A+PHNlY3Rpb24gYXJpYS1sYWJlbD0iV2VhdGhlciI+PGRpdj48cD5MT0NBTCBGT1JFQ0FTVDwvcD48aDIgaWQ9ImNpdHkiPkxvYWRpbmfigKY8L2gyPjxwIGlkPSJ0ZW1wZXJhdHVyZSIgY2xhc3M9InRlbXBlcmF0dXJlIj7igJQ8L3A+PHAgaWQ9IndpbmQiPjwvcD48L2Rpdj48ZGl2IGNsYXNzPSJzdW4iIGFyaWEtaGlkZGVuPSJ0cnVlIj7imIA8L2Rpdj48L3NlY3Rpb24+PGRpdiBjbGFzcz0iYnV0dG9ucyI+PGJ1dHRvbiBpZD0idW5pdHMiPlNob3cgRmFocmVuaGVpdDwvYnV0dG9uPjxidXR0b24gaWQ9InJlZnJlc2giPlJlZnJlc2ggc25hcHNob3Q8L2J1dHRvbj48L2Rpdj48cCBpZD0ic3RhdHVzIiByb2xlPSJzdGF0dXMiPjwvcD48cCBjbGFzcz0ibm90ZSI+RmljdGlvbmFsIHdlYXRoZXIgZm9yIHRoZSBkZW1vLiBOb3QgbGl2ZSBvYnNlcnZhdGlvbnMuPGJyPkRlbW9Qcm9vZiBjaGVja3MgdGhlIGRlY2xhcmVkIGpvdXJuZXkgYW5kIEhUVFAgcmVwbGF5LCBub3QgYXBwbGljYXRpb24gY29ycmVjdG5lc3Mgb3IgZGF0YSB0cnV0aC48L3A+PC9tYWluPjxzY3JpcHQgc3JjPSIvYXBwLmpzIj48L3NjcmlwdD48L2JvZHk+PC9odG1sPgo=",
+      "sha256": "8e1798d5f777a1ec7ae24a4e6cd3ef1dd4bbededf18f10c2bfec7071723e0539"
+    },
+    {
+      "path": "/style.css",
+      "contentType": "text/css",
+      "bodyBase64": "Kntib3gtc2l6aW5nOmJvcmRlci1ib3h9Ym9keXttYXJnaW46MDtiYWNrZ3JvdW5kOiNmMWYzZTg7Y29sb3I6IzE2M2IyZjtmb250LWZhbWlseTpzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxzYW5zLXNlcmlmfW1haW57bWF4LXdpZHRoOjEwNTBweDttYXJnaW46MCBhdXRvO3BhZGRpbmc6NTJweCA2NHB4fS5leWVicm93e2ZvbnQ6MTJweCBtb25vc3BhY2U7bGV0dGVyLXNwYWNpbmc6MnB4fWgxe2ZvbnQtc2l6ZTo3MHB4O2xpbmUtaGVpZ2h0OjEuMDI7bGV0dGVyLXNwYWNpbmc6LTRweDttYXJnaW46MzBweCAwfS5pbnRyb3ttYXgtd2lkdGg6NjEwcHg7bGluZS1oZWlnaHQ6MS42O2NvbG9yOiM0ZDY0NTl9c2VjdGlvbntkaXNwbGF5OmZsZXg7anVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47YWxpZ24taXRlbXM6Y2VudGVyO2JhY2tncm91bmQ6I2Q5ZTViOTtwYWRkaW5nOjI4cHggMzhweDtib3JkZXItcmFkaXVzOjIwcHg7bWFyZ2luOjI4cHggMH1zZWN0aW9uIHA6Zmlyc3QtY2hpbGR7Zm9udDoxMnB4IG1vbm9zcGFjZTtsZXR0ZXItc3BhY2luZzoycHh9aDJ7Zm9udC1zaXplOjMycHg7bWFyZ2luOjE0cHggMH0udGVtcGVyYXR1cmV7Zm9udC1zaXplOjY1cHg7Zm9udC13ZWlnaHQ6NTAwO21hcmdpbjoxMnB4IDB9LnN1bntmb250LXNpemU6MTQwcHg7Y29sb3I6I2I1NjYxYn0uYnV0dG9uc3tkaXNwbGF5OmZsZXg7Z2FwOjEycHh9YnV0dG9ue3BhZGRpbmc6MTNweCAyMnB4O2JhY2tncm91bmQ6IzE5M2UzMTtjb2xvcjp3aGl0ZTtib3JkZXI6MDtib3JkZXItcmFkaXVzOjhweDtmb250OmluaGVyaXQ7Y3Vyc29yOnBvaW50ZXJ9YnV0dG9uOmZvY3VzLXZpc2libGV7b3V0bGluZTozcHggc29saWQgI2FkNjUwZjtvdXRsaW5lLW9mZnNldDo0cHh9Lm5vdGV7Zm9udC1zaXplOjEzcHg7bGluZS1oZWlnaHQ6MS43O2NvbG9yOiM1MjY3NWJ9I3N0YXR1c3ttaW4taGVpZ2h0OjI0cHh9QG1lZGlhKG1heC13aWR0aDo2MDBweCl7bWFpbntwYWRkaW5nOjMwcHggMjRweH1oMXtmb250LXNpemU6NDhweH0uc3Vue2ZvbnQtc2l6ZTo3MHB4fXNlY3Rpb257cGFkZGluZzoyNHB4fS5idXR0b25ze2ZsZXgtd3JhcDp3cmFwfX0K",
+      "sha256": "f2fb36bc3f1321c80b88e16539c37aa2968f40d80ce8b99727a374fa60b99c14"
+    },
+    {
+      "path": "/app.js",
+      "contentType": "text/javascript",
+      "bodyBase64": "bGV0IGZhaHJlbmhlaXQ9ZmFsc2Usd2VhdGhlcjsKY29uc3QgYnlJZD1pZD0+ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoaWQpOwpmdW5jdGlvbiByZW5kZXIoKXtpZighd2VhdGhlcilyZXR1cm47YnlJZCgnY2l0eScpLnRleHRDb250ZW50PXdlYXRoZXIuY2l0eTtieUlkKCd0ZW1wZXJhdHVyZScpLnRleHRDb250ZW50PWZhaHJlbmhlaXQ/KHdlYXRoZXIudGVtcGVyYXR1cmVDKjkvNSszMikudG9GaXhlZCgxKSsnIMKwRic6d2VhdGhlci50ZW1wZXJhdHVyZUMrJyDCsEMnO2J5SWQoJ3dpbmQnKS50ZXh0Q29udGVudD0nV2luZCAnK3dlYXRoZXIud2luZEtwaCsnIGttL2gnO2J5SWQoJ3VuaXRzJykudGV4dENvbnRlbnQ9ZmFocmVuaGVpdD8nU2hvdyBDZWxzaXVzJzonU2hvdyBGYWhyZW5oZWl0Jzt9CmFzeW5jIGZ1bmN0aW9uIGxvYWQoKXtieUlkKCdzdGF0dXMnKS50ZXh0Q29udGVudD0nTG9hZGluZyBhcHByb3ZlZCBzbmFwc2hvdOKApic7dHJ5e2NvbnN0IHJlc3BvbnNlPWF3YWl0IGZldGNoKCcvYXBpL3dlYXRoZXInKTtpZighcmVzcG9uc2Uub2spdGhyb3cgRXJyb3IoKTt3ZWF0aGVyPWF3YWl0IHJlc3BvbnNlLmpzb24oKTtyZW5kZXIoKTtieUlkKCdzdGF0dXMnKS50ZXh0Q29udGVudD0nQXBwcm92ZWQgZXhhbXBsZSBzbmFwc2hvdCBsb2FkZWQuJzt9Y2F0Y2h7YnlJZCgnc3RhdHVzJykudGV4dENvbnRlbnQ9J1NuYXBzaG90IHVuYXZhaWxhYmxlLic7fX0KYnlJZCgndW5pdHMnKS5vbmNsaWNrPSgpPT57ZmFocmVuaGVpdD0hZmFocmVuaGVpdDtyZW5kZXIoKTt9O2J5SWQoJ3JlZnJlc2gnKS5vbmNsaWNrPWxvYWQ7bG9hZCgpOwo=",
+      "sha256": "4f616df6e57f425b6fdd0e985a7d0a4fd674e2d58b7f23877123e75341d32d3c"
+    }
+  ]
+}

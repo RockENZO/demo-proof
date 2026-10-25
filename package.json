@@ -1,0 +1,14 @@
+{
+  "name": "@rockenzo/demo-proof",
+  "version": "0.1.0",
+  "description": "Turn approved local demo data into replay-verified walkthroughs and inspectable export evidence.",
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "bin": {"demo-proof": "bin/demo-proof.mjs"},
+  "exports": "./src/index.mjs",
+  "files": ["bin", "src", "examples", "LICENSE", "README.md"],
+  "scripts": {"test": "node --test test/*.test.mjs", "demo:serve": "node examples/weather/server.mjs"},
+  "dependencies": {"playwright": "1.64.1"},
+  "license": "MIT",
+  "repository": {"type":"git","url":"git+https://github.com/RockENZO/demo-proof.git"}
+}

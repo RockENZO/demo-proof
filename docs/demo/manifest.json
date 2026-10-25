@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "tool": "DemoProof",
+  "version": "0.1.0",
+  "status": "verified-http-replay",
+  "capturedAt": "2026-10-25T15:10:04.186Z",
+  "replayedAt": "2026-10-25T15:10:24.963Z",
+  "bundleSha256": "90b6c871fa0cd5aa4e2ae3b0c6e9361b59c771c47ea4e1da0baab6d63ea6b7ee",
+  "sourceConfigSha256": "6d93d980b33a0408421db12e092a5b64338c9ef49737d5266d6f610f163e165f",
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "assertions": 4,
+  "fixtureResponses": 2,
+  "replayedAssets": 3,
+  "networkPolicy": "All HTTP requests fulfilled locally or aborted; no asset fetches.",
+  "approvedFixtureFields": [
+    {
+      "path": "/api/weather",
+      "fields": [
+        "city",
+        "temperatureC",
+        "windKph"
+      ]
+    }
+  ],
+  "files": {
+    "walkthrough.mp4": {
+      "bytes": 171615,
+      "sha256": "b827289fd482daa0bb0fed367c51bd8e9fba3271a038bd344a6f239a4a53ae4b"
+    },
+    "walkthrough.gif": {
+      "bytes": 1743571,
+      "sha256": "bed338cba1114460ade7e670e7fa2634ce295b9d33410d98c420c06d042027b3"
+    },
+    "screenshot.png": {
+      "bytes": 70458,
+      "sha256": "ee304d09bbc439db9b9ba4111768a32be2c5424320de0798c6240dbb7df579fb"
+    }
+  },
+  "limits": [
+    "Only the declared journey and supported HTTP replay are checked.",
+    "Application assets, selectors, expected/fill text and media need human review before sharing.",
+    "Fixture field projection does not detect every secret or personal detail.",
+    "Trusted local applications only; this is not an OS network sandbox."
+  ]
+}
