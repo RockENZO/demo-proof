@@ -41,3 +41,15 @@ test('new nested output parents are created without overwriting existing files',
  const server=createExampleServer();const url=await serve(server);const file=join(root,'config.json');await writeFile(file,JSON.stringify(short(url)));
  try{const r=await capture(file,join(root,'new-parent','capture'));assert.ok((await readFile(r.bundle,'utf8')).includes('sourceConfigSha256'));await writeFile(join(root,'occupied'),'keep');await assert.rejects(capture(file,join(root,'occupied')),/EEXIST/);assert.equal(await readFile(join(root,'occupied'),'utf8'),'keep');}finally{await close(server);}
 }));
+test('hidden expected text cannot produce a verified capture or replay',()=>area(async root=>{
+ const html='<h1 hidden>Ready</h1>';const server=createServer((req,res)=>{res.writeHead(200,{'content-type':'text/html'});res.end(html);});const url=await serve(server);
+ const config={schemaVersion:1,url,assets:['/'],fixtures:[],steps:[{action:'expectText',selector:'h1',text:'Ready'}]};const file=join(root,'config.json');await writeFile(file,JSON.stringify(config));
+ try{await assert.rejects(capture(file,join(root,'hidden-capture')));assert.deepEqual(await readdir(join(root,'hidden-capture')),['failure.json']);}finally{await close(server);}
+ const bundle={schemaVersion:1,capturedAt:new Date().toISOString(),sourceConfigSha256:hash(JSON.stringify(config)),config,resources:[{path:'/',contentType:'text/html',bodyBase64:Buffer.from(html).toString('base64'),sha256:hash(html)}]};const f=join(root,'bundle.json');await writeFile(f,JSON.stringify(bundle));
+ await assert.rejects(replay(f,join(root,'hidden-replay')));assert.deepEqual(await readdir(join(root,'hidden-replay')),['failure.json']);
+}));
+test('text assertions wait for asynchronously inserted visible elements',()=>area(async root=>{
+ const html='<script>setTimeout(()=>{const h=document.createElement("h1");h.textContent="Ready";document.body.append(h)},1500)</script>';const server=createServer((req,res)=>{res.writeHead(200,{'content-type':'text/html'});res.end(html);});const url=await serve(server);const file=join(root,'config.json');await writeFile(file,JSON.stringify({schemaVersion:1,url,assets:['/'],fixtures:[],steps:[{action:'expectText',selector:'h1',text:'Ready'}]}));
+ let captured;try{captured=await capture(file,join(root,'delayed-capture'));assert.equal(captured.assertions,1);}finally{await close(server);}
+ const manifest=await replay(captured.bundle,join(root,'delayed-replay'));assert.equal(manifest.assertions,1);assert.equal(manifest.status,'verified-http-replay');
+}));

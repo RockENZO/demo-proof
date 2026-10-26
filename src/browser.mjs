@@ -31,7 +31,23 @@ export async function journey(config, {resources=null,videoDir=null,screenshot=n
       if(step.action==='wait')await delay(step.ms);
       else if(step.action==='click')await page.locator(step.selector).click({timeout:5000});
       else if(step.action==='fill')await page.locator(step.selector).fill(step.text,{timeout:5000});
-      else {const until=Date.now()+5000;let matched=false;while(Date.now()<until){const text=await page.locator(step.selector).innerText({timeout:1000});if(text.includes(step.text)){matched=true;break;}await delay(50);}assert(matched,'Journey text assertion failed.');assertions++;}
+      else {
+        const locator=page.locator(step.selector);const until=Date.now()+5000;let matched=false;
+        while(Date.now()<until){
+          if(await locator.isVisible()){
+            try{
+              const text=await locator.innerText({timeout:Math.max(1,Math.min(1000,until-Date.now()))});
+              if(text.includes(step.text)&&await locator.isVisible()){matched=true;break;}
+            }catch(error){
+              // An element may detach between visibility and text reads. Retry within
+              // the same deadline; invalid selectors and other errors still fail.
+              if(error.name!=='TimeoutError')throw error;
+            }
+          }
+          await delay(50);
+        }
+        assert(matched,'Journey visible-text assertion failed.');assertions++;
+      }
     }
     await delay(200);assert(!violations.length,'Journey failed its network or application-error gate.');
     const screenshotBytes=screenshot?await page.screenshot({fullPage:false}):null;const video=page.video();await context.close();context=null;
