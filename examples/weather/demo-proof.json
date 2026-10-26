@@ -1,0 +1,20 @@
+{
+  "schemaVersion":1,
+  "url":"http://127.0.0.1:4178/",
+  "viewport":{"width":1280,"height":900},
+  "assets":["/","/style.css","/app.js"],
+  "fixtures":[{"path":"/api/weather","method":"GET","json":{"city":"Adelaide","temperatureC":21,"windKph":12,"internalNote":"ILLUSTRATIVE_UNAPPROVED_FIELD"},"allowFields":["city","temperatureC","windKph"]}],
+  "steps":[
+    {"action":"expectText","selector":"#city","text":"Adelaide"},
+    {"action":"wait","ms":4500},
+    {"action":"click","selector":"#units"},
+    {"action":"expectText","selector":"#temperature","text":"69.8 °F"},
+    {"action":"wait","ms":4500},
+    {"action":"click","selector":"#refresh"},
+    {"action":"expectText","selector":"#status","text":"Approved example snapshot loaded."},
+    {"action":"wait","ms":4500},
+    {"action":"click","selector":"#units"},
+    {"action":"expectText","selector":"#temperature","text":"21 °C"},
+    {"action":"wait","ms":4500}
+  ]
+}
