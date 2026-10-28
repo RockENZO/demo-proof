@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DemoProof — replay evidence</title><style>body{font:17px system-ui;background:#f4f4ed;color:#17372d;max-width:1000px;margin:40px auto;padding:24px}video,img{max-width:100%;border-radius:12px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#e7ecdf;padding:20px;border-radius:12px}a{color:#245e45}h1{font-size:42px}.badge{background:#d8e8cc;padding:8px 12px;display:inline-block}li{margin:8px 0}</style><h1>DemoProof</h1><p class="badge">Verified HTTP replay · approved example data</p><p>This records a browser journey against a frozen local snapshot. It is not a live service connection, general secret scanner, application security audit or proof of full functionality.</p><video controls muted playsinline src="walkthrough.mp4" aria-label="Recorded replay walkthrough"></video><p><a href="manifest.json">Download provenance</a> · <a href="screenshot.png">Final screen</a></p><h2>Evidence and scope</h2><pre>{
+  &quot;schemaVersion&quot;: 1,
+  &quot;tool&quot;: &quot;DemoProof&quot;,
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;status&quot;: &quot;verified-http-replay&quot;,
+  &quot;capturedAt&quot;: &quot;2026-10-28T08:36:06.252Z&quot;,
+  &quot;replayedAt&quot;: &quot;2026-10-28T08:37:06.342Z&quot;,
+  &quot;bundleSha256&quot;: &quot;d9e77fd859c7485c553c4fa8bce2890307ed0ab44225f4f56948dd2ebe6387e2&quot;,
+  &quot;sourceConfigSha256&quot;: &quot;00de87de7a8050d98a68b364cefbdde5e30001ea9331ccb064566fbb6a541faa&quot;,
+  &quot;viewport&quot;: {
+    &quot;width&quot;: 1280,
+    &quot;height&quot;: 960
+  },
+  &quot;assertions&quot;: 4,
+  &quot;fixtureResponses&quot;: 0,
+  &quot;replayedAssets&quot;: 3,
+  &quot;networkPolicy&quot;: &quot;All HTTP requests fulfilled locally or aborted; no asset fetches.&quot;,
+  &quot;approvedFixtureFields&quot;: [],
+  &quot;files&quot;: {
+    &quot;walkthrough.mp4&quot;: {
+      &quot;bytes&quot;: 234897,
+      &quot;sha256&quot;: &quot;b05d82032a068a80cd0d6f0fdf0b4795c2784d91d33859655914b36604ecc74c&quot;
+    },
+    &quot;walkthrough.gif&quot;: {
+      &quot;bytes&quot;: 3089691,
+      &quot;sha256&quot;: &quot;a15e61de32067882dfef563c1656cf3782402d4a9bbc4cfa1356bd8d8ef3c473&quot;
+    },
+    &quot;screenshot.png&quot;: {
+      &quot;bytes&quot;: 104228,
+      &quot;sha256&quot;: &quot;8ff3be39f512b6d96e1c17442d61207238bfc03d6bd32ee4cc4edd8b59b66d0a&quot;
+    }
+  },
+  &quot;limits&quot;: [
+    &quot;Only the declared journey and supported HTTP replay are checked.&quot;,
+    &quot;Application assets, selectors, expected/fill text and media need human review before sharing.&quot;,
+    &quot;Fixture field projection does not detect every secret or personal detail.&quot;,
+    &quot;Trusted local applications only; this is not an OS network sandbox.&quot;
+  ]
+}
+</pre></html>

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "tool": "DemoProof",
+  "version": "0.2.0",
+  "status": "verified-http-replay",
+  "capturedAt": "2026-10-28T08:36:06.252Z",
+  "replayedAt": "2026-10-28T08:37:06.342Z",
+  "bundleSha256": "d9e77fd859c7485c553c4fa8bce2890307ed0ab44225f4f56948dd2ebe6387e2",
+  "sourceConfigSha256": "00de87de7a8050d98a68b364cefbdde5e30001ea9331ccb064566fbb6a541faa",
+  "viewport": {
+    "width": 1280,
+    "height": 960
+  },
+  "assertions": 4,
+  "fixtureResponses": 0,
+  "replayedAssets": 3,
+  "networkPolicy": "All HTTP requests fulfilled locally or aborted; no asset fetches.",
+  "approvedFixtureFields": [],
+  "files": {
+    "walkthrough.mp4": {
+      "bytes": 234897,
+      "sha256": "b05d82032a068a80cd0d6f0fdf0b4795c2784d91d33859655914b36604ecc74c"
+    },
+    "walkthrough.gif": {
+      "bytes": 3089691,
+      "sha256": "a15e61de32067882dfef563c1656cf3782402d4a9bbc4cfa1356bd8d8ef3c473"
+    },
+    "screenshot.png": {
+      "bytes": 104228,
+      "sha256": "8ff3be39f512b6d96e1c17442d61207238bfc03d6bd32ee4cc4edd8b59b66d0a"
+    }
+  },
+  "limits": [
+    "Only the declared journey and supported HTTP replay are checked.",
+    "Application assets, selectors, expected/fill text and media need human review before sharing.",
+    "Fixture field projection does not detect every secret or personal detail.",
+    "Trusted local applications only; this is not an OS network sandbox."
+  ]
+}

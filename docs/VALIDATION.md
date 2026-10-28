@@ -24,3 +24,31 @@ The real example is also a side-by-side workflow assessment: stock Playwright pr
 ## Review regressions
 
 The first automatic review identified hidden-text false positives and a one-second early timeout for asynchronously inserted elements. Both were reproduced as failing browser tests. Assertions now require visibility and retry transient missing/detached elements within the same five-second deadline. Capture and stopped-server replay cover hidden-text rejection and an element inserted after 1.5 seconds. These are part of the 29-test suite.
+
+## 28 October 2026: artifact handoff and real application integration
+
+The v0.2.0 verification command checks the existing v0.1.0 weather export as well
+as a new actual [Readme Reality recording](demo/readme-reality/report.html).
+The second recording uses the exact v0.2.0 source commit and unmodified built
+HTML/JS/CSS. The original static server was confirmed unavailable before replay.
+Four visible assertions pass during capture and again during replay; no API
+fixture or remote repository scan occurs. Its MP4 lasts 23.88 seconds at
+1280×960. This is a real internal application integration using fictional README
+snapshots, not a second purpose-built weather mock or external customer trial.
+Source/build hashes, capture/replay times, media hashes and attribution notices
+are included beside its manifest. The recipe remains manual and explicit.
+
+New verification tests use tiny synthetic non-media bytes to isolate hash and
+filesystem input checks. Actual Chromium/ffmpeg integration separately verifies
+real produced media. The standalone verify CLI is tested with no Playwright
+package or encoder available in that copied CLI directory. Old manifests,
+optional GIFs, tampering, missing/truncated artifacts, invalid size/schema,
+traversal/absolute/nested paths, symlinks and independently pinned manifest
+digests are covered. The test demonstrating simultaneous manifest/media edits
+is deliberate: matching self-declared hashes alone are not authentication.
+
+Verification is read-only and streams bounded files. It does not execute the
+HTML report, decode media, rerun assertions, validate all files in a directory,
+recover missing bundles or create a filesystem transaction. Stable trusted
+input directories remain required. No new model, productivity or market-demand
+metrics are claimed.

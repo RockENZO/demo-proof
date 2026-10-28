@@ -5,7 +5,7 @@ import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {createServer} from 'node:http';
 import {createExampleServer} from '../examples/weather/server.mjs';
-import {capture,replay} from '../src/index.mjs';
+import {capture,replay,verify} from '../src/index.mjs';
 import {hash} from '../src/config.mjs';
 const sample=JSON.parse(await readFile(new URL('../examples/weather/demo-proof.json',import.meta.url),'utf8'));
 async function serve(server){await new Promise(r=>server.listen(0,'127.0.0.1',r));return 'http://127.0.0.1:'+server.address().port+'/';}
@@ -18,6 +18,7 @@ test('approved capture, API-down and server-off replay, checksummed MP4/GIF and 
  const text=await readFile(captured.bundle,'utf8');assert.ok(!text.includes('PRIVATE_DO_NOT_EXPORT_42'));assert.ok(!text.includes('ILLUSTRATIVE_UNAPPROVED_FIELD'));const b=JSON.parse(text);assert.equal(b.resources.length,3);assert.deepEqual(Object.keys(b.config.fixtures[0].json),['city','temperatureC','windKph']);
  const out=join(root,'export');const manifest=await replay(captured.bundle,out,{gif:true});assert.equal(manifest.status,'verified-http-replay');assert.equal(manifest.assertions,4);assert.ok(manifest.fixtureResponses>=2);assert.ok(manifest.replayedAssets>=3);assert.equal(manifest.bundleSha256,hash(text));
  for(const [name,entry]of Object.entries(manifest.files)){const bytes=await readFile(join(out,name));assert.equal(hash(bytes),entry.sha256);assert.equal(bytes.length,entry.bytes);assert.ok(bytes.length>0);}
+ const checked=await verify(join(out,'manifest.json'),{expectedManifestSha256:hash(await readFile(join(out,'manifest.json')))});assert.equal(checked.status,'verified-artifact-hashes');assert.deepEqual(checked.files,manifest.files);
  assert.ok((await readFile(join(out,'report.html'),'utf8')).includes('not a live service connection'));assert.ok(!(await readdir(out)).some(x=>x.endsWith('.webm')));await assert.rejects(replay(captured.bundle,out),/EEXIST/);
 }));
 test('unexpected requests fail even when the UI catches the error',()=>area(async root=>{
