@@ -4,11 +4,11 @@
 
 Experimental local tooling for static web apps with JSON APIs. Capture declared application assets and **explicitly approved example fields**, stop the original server, then replay the journey to produce an MP4, optional GIF, screenshot and checksummed report. It reuses Playwright and ffmpeg; no model, account, cloud upload or paid service.
 
-[Inspect the actual example report](https://rockenzo.github.io/demo-proof/) · [Example bundle](docs/demo/bundle.json)
+[Inspect the weather example report](https://rockenzo.github.io/demo-proof/) · [Real Readme Reality integration](https://rockenzo.github.io/demo-proof/readme-reality/report.html) · [Example bundle](docs/demo/bundle.json)
 
 ![Actual Chromium replay using approved fictional weather fields](docs/demo/walkthrough.gif)
 
-This is an internal-tested prototype, not externally validated adoption or a general privacy/security certification. All examples use fictional weather data.
+This is an internal-tested prototype, not externally validated adoption or a general privacy/security certification. The weather example uses fictional data. The second internal integration records the real Readme Reality application running its fictional README snapshots, with no API fixture or remote repository scan.
 
 ## Run from source
 
@@ -34,9 +34,21 @@ Stop the example server, then replay with the server unavailable:
 node bin/demo-proof.mjs replay --bundle .demo-proof/capture/bundle.json --out .demo-proof/export --gif
 ```
 
-Open `.demo-proof/export/report.html`. Outputs must be **new directories**, including on retries. An existing directory is never reused. A failed run writes `failure.json`; do not share a failed or partial output. A successful export requires a valid `manifest.json` and the listed files with matching hashes. No background server, repository commands or application dependency installation is launched by these commands.
+Open `.demo-proof/export/report.html`. Outputs must be **new directories**, including on retries. An existing directory is never reused. A failed run writes `failure.json`; do not share a failed or partial output. A successful export requires a valid `manifest.json` and the listed files with matching hashes; use the read-only `verify` command below to check the downloaded bytes. No background server, repository commands or application dependency installation is launched by these commands.
 
 The example's live `/api/weather` deliberately returns 503. The capture and replay use the declared fixture; this is not live weather or a recording of an actual API response. `capture` freezes the explicitly declared web assets and drives the approved data through the UI.
+
+## Verify a downloaded export
+
+```bash
+node bin/demo-proof.mjs verify --manifest docs/demo/manifest.json
+# Optionally pin a digest obtained from the producer through a trusted channel:
+node bin/demo-proof.mjs verify --manifest path/to/export/manifest.json --expected-manifest-sha256 YOUR_64_CHARACTER_LOWERCASE_SHA256
+```
+
+`verify` needs only Node.js; it does not launch Chromium, ffmpeg, application code or the HTML report. It streams the required MP4/screenshot and optional GIF, checking each declared size and SHA-256 with a 50 MB per-file limit. Missing, changed, non-regular and symlink files, unsupported paths and malformed manifests fail with exit 1. Success prints JSON with `status: verified-artifact-hashes` and the exact manifest digest; it writes nothing. Existing v0.1.0 export manifests remain supported.
+
+This is **file-integrity verification**, not a fresh browser replay, media decoder, publisher signature, privacy review or check of `report.html`/unlisted files. It does not establish the original source/bundle is available. Changing both the media and manifest can produce matching hashes: obtain the optional manifest digest independently if you need to pin the expected bytes. Verification assumes a trusted, stable directory; checks for file changes do not create a filesystem snapshot or protect against hostile mount topology.
 
 ## Configuration
 
@@ -78,13 +90,15 @@ Inputs are limited to 12 MB, each asset to 2 MB and total decoded assets to 8 MB
 
 ## Design and validation
 
-`src/config.mjs` validates inputs, projects fixtures and verifies bundle integrity. `src/browser.mjs` owns the isolated browser context, HTTP gate and bounded asset capture. `src/index.mjs` writes reports and encodes media; `bin/demo-proof.mjs` is the CLI. There is no backend service or database. [Validation and sample provenance](docs/VALIDATION.md).
+`src/config.mjs` validates inputs, projects fixtures and verifies bundle integrity. `src/browser.mjs` owns the isolated browser context, HTTP gate and bounded asset capture. `src/index.mjs` writes reports and encodes media; `src/verify.mjs` streams and checks exported artifact hashes independently; `bin/demo-proof.mjs` is the CLI. There is no backend service or database. [Validation and sample provenance](docs/VALIDATION.md).
 
 ```bash
 npm test
 ```
 
 The tests include actual Chromium capture, full server shutdown before replay, MP4/GIF output hashes, blocked unexpected requests, redirects, failed UI assertions, tampering, cookies, input limits and existing-output protection. CI runs on Linux Node 22 and 24. A complete OS/runtime matrix is not provided.
+
+For a second, non-weather application, see [the pinned Readme Reality integration recipe](examples/readme-reality/README.md). It builds the actual MIT-licensed app, captures explicit static assets, stops the original server and verifies a fresh replay export. This remains an internal trial.
 
 ## Related tools
 

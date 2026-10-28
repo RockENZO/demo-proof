@@ -1,0 +1,26 @@
+{
+  "scope": "Internal trial on the actual Readme Reality v0.2.0 built browser app. Its README/file examples are fictional static snapshots, not a scan of remote repositories.",
+  "source_repository": "https://github.com/RockENZO/readme-reality",
+  "source_commit": "9298574e5bc5e042ab9955b2be50081c646cf51d",
+  "source_license": "MIT; bundled parser notices included",
+  "static_build_files": {
+    "assets/favicon-BAwZYH4D.svg": "e5d630d83ddd656130b7a81e07e866eec0aa2d67043addd8abc78dd787da6d87",
+    "assets/index-C8qxFcZm.js": "927689da2d39d12b46eab79f62ff1a1a7e5c284dd525e1185e39ce7dadb32e77",
+    "assets/index-DhzNQHvD.css": "d4fca30d0c6e8a88330defa626b30d2de348a56dd8d49d429a940fb1982c39bc",
+    "index.html": "d0d07b5f1c62e13018a996acba69fc998c0cd9bbb37ff53c58c02ca9565933cb"
+  },
+  "capture_assertions": 4,
+  "replay_assertions": 4,
+  "fixture_responses": 0,
+  "original_http_server_stopped": true,
+  "unavailable_origin_checked": "http://127.0.0.1:4179/readme-reality/",
+  "manifest_sha256": "8fe7c6b4666cf68b375a10d81f00f8b45d4fb818cb67111359e5aade8488d456",
+  "bundle_sha256": "d9e77fd859c7485c553c4fa8bce2890307ed0ab44225f4f56948dd2ebe6387e2",
+  "recording_seconds": 23.88,
+  "runtime": {
+    "node": "v26.8.2",
+    "playwright": "1.64.1"
+  },
+  "media": "Actual Chromium screen recording encoded with ffmpeg; no generated frames or remote API data.",
+  "limits": "Internal integration only, no external adoption or usability/performance advantage established. Metadata is not an independently signed attestation."
+}
